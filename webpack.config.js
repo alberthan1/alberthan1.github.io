@@ -41,11 +41,11 @@ module.exports = {
         use: {
           loader: "svelte-loader",
           options: {
-            // compilerOptions: {
-            //   dev: !prod,
-            // },
-            // emitCss: prod,
-            // hotReload: !prod,
+            compilerOptions: {
+              dev: !prod,
+            },
+            emitCss: prod,
+            hotReload: !prod,
           },
         },
       },
