@@ -9,7 +9,7 @@ app.use(express.urlencoded({ extended: true }));
 
 
 // app.use(express.static(path.join(__dirname, '../build')));
-app.use(express.static('client'));
+app.use(express.static('build'));
 
 // unknown root error handling function
 app.use((req, res) => res.status(404).send('Not Found'));
