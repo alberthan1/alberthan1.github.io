@@ -1,5 +1,7 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
+const prod = process.env.NODE_ENV=="production" ? true : false;
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   mode: process.env.NODE_ENV,
@@ -9,7 +11,15 @@ module.exports = {
     // publicPath: '/build/',
     filename: "bundle.js",
   },
-  plugins: [new HtmlWebpackPlugin({ template: "./index.html" })],
+  plugins: [new HtmlWebpackPlugin({ template: "./index.html" }), new MiniCssExtractPlugin()],
+  resolve: {
+    // see below for an explanation
+    alias: {
+      svelte: path.resolve('node_modules', 'svelte')
+    },
+    extensions: ['.mjs', '.js', '.svelte'],
+    mainFields: ['svelte', 'browser', 'module', 'main']
+  },
   module: {
     rules: [
       {
@@ -48,6 +58,10 @@ module.exports = {
             hotReload: !prod,
           },
         },
+      },
+      {
+        test: /\.css$/i,
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
     ],
   },
